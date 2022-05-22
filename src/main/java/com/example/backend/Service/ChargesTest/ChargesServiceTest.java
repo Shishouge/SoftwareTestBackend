@@ -17,7 +17,7 @@ public class ChargesServiceTest {
     @Test
     public void testStaticCsvTest()
     {
-        JSONObject j = c.testStaticFile("Boundary");
+        JSONObject j = c.testStaticFile("Decision");
         System.out.println(j);
     }
 }
