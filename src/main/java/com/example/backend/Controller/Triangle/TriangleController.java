@@ -30,7 +30,7 @@ public class TriangleController {
     public JSONObject getTriangleBatchTestResult(@RequestBody String jsonStr) throws UnsupportedEncodingException {
         String urlStr = URLDecoder.decode(jsonStr, "UTF-8");
         System.out.println(urlStr.substring(0,urlStr.length()-1));
-        // 传过来的json字符串前后带空格 所以要截取
+        // 传过来的json字符串格式会乱加东西 所以要截取
         List<TriangleCase> list = JSON.parseArray(urlStr.substring(0,urlStr.length()-1), TriangleCase.class);
         System.out.println(list);
         return t.testCaseBatch(list);
