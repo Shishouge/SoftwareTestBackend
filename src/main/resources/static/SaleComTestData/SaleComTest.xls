@@ -1,0 +1,25 @@
+id	mainUnit	screen	perpheral	expectedOutput
+1	1	1	1	10
+2	2	1	1	12.5
+3	4	12	12	100
+4	5	12	12	153.75
+5	18	18	18	270
+6	0	1	1	Each salesman sells at least one complete machine per month
+7	1	40	45	650
+8	3	38	50	693
+9	35	39	46	823
+10	69	41	44	987
+11	70	42	43	989
+12	35	1	45	586
+13	34	2	44	578
+14	36	79	46	1068
+15	37	80	47	1088
+16	35	40	1	424
+17	34	41	2	434
+18	36	42	89	1233
+19	37	38	90	1223
+20	35	0	45	Each salesman sells at least one complete machine per month
+21	35	40	0	Each salesman sells at least one complete machine per month
+22	71	40	45	Main unit sales exceeded the limit
+23	35	81	45	Screen sales exceeded the limit
+24	35	40	91	Perpheral sales exceeded the limit
