@@ -1,41 +1,36 @@
 package com.example.backend.Solution.Charges;
 
+import java.math.BigDecimal;
+
 public class Charges {
 
-    public double getCharge(int num, double time, int year, int month) {
-        double charge;
-        double basic = 25;
-        double cost = 0.15;
-        if (checkValid(num, time, year, month)) {
-            charge = basic + cost * time * (1 - getDiscount(num, time));
-        } else {
-            // 无效输入
-            return -1;
+    public String getCharge(int telTime,int delayTimes) {
+        Double discount = getDiscount(delayTimes,telTime);
+//        String charge = String.format("%.3f", 25 + 0.15 * teleMinutes * discount);//
+//        BigDecimal b1 = new BigDecimal(Double.valueOf(0.15));
+//        BigDecimal b2 = new BigDecimal(Double.valueOf(teleMinutes));
+//        BigDecimal b3 = new BigDecimal(Double.valueOf(discount));
+//        Double res = b1.multiply(b2).multiply(b3).doubleValue() + 25;
+//        String charge = String.format("%.2f",res);
+        String charge = String.format("%.4f", 25 + 0.15 * telTime * (1-discount));
+        if(charge.indexOf(".") > 0){
+            //正则表达
+            charge = charge.replaceAll("0+?$", "");//去掉后面无用的零
+            charge = charge.replaceAll("[.]$", "");//如小数点后面全是零则去掉小数点
         }
-        double a =Math.round(charge * 100);
-        double b = a * 0.01;
-        return Math.round(charge * 100) * 0.01;
+        return charge;
     }
 
-    private boolean checkValid(int num, double time, int year, int month) {
-        if (time < 0 || time > getTimeBoundary(year, month)) return false;
-        if (num < 0 || num >= month) return false;
+    private boolean checkFirst(int telTime) {
+        if (telTime < 0 || telTime >= 44640) return false;
         return true;
     }
 
-    private int getTimeBoundary(int year, int month) {
-        if (month != 2 ) {
-            if (month == 4 || month == 6 || month == 9 || month ==11) {
-                return 30 * 24 * 60;
-            }
-            return 31 * 24 * 60;
-        } else {
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-                return 29 * 24 * 60;
-            }
-            return 28 * 24 * 60;
-        }
+    private boolean checkLast(int delayTimes) {
+        if (delayTimes < 0 || delayTimes > 11) return false;
+        return true;
     }
+
 
     private double getDiscount(int num, double time) {
         double discount = 0;
@@ -61,5 +56,13 @@ public class Charges {
             }
         }
         return discount;
+    }
+
+    public String checkType(int telTime,int delayTimes){
+        if(!checkFirst(telTime))
+            return "INVALID TELTIME";
+        if(!checkLast(delayTimes))
+            return "INVALID DELAYTIMES";
+        return getCharge(telTime, delayTimes);
     }
 }

@@ -1,24 +1,21 @@
 package com.example.backend.Entity;
 
 public class ChargeCase {
+
     public String id;
-    public int year;
-    public int month;
-    public int num;
-    public int time;
-    public double expectedOutput;
+    public int telTime;
+    public int delayPayTimes;
+    public String expectedResult;
 
     // 要有否则parse json的时候报错
     public ChargeCase(){
 
     }
 
-    public ChargeCase(int year, int month, int num, int time, double expectedOutput) {
-        this.year = year;
-        this.month = month;
-        this.num = num;
-        this.time = time;
-        this.expectedOutput = expectedOutput;
+    public ChargeCase(int telTime, int delayPayTimes, String expectedOutput) {
+        this.telTime = telTime;
+        this.delayPayTimes = delayPayTimes;
+        this.expectedResult = expectedOutput;
     }
 
     public String getId() {
@@ -29,43 +26,29 @@ public class ChargeCase {
         this.id = id;
     }
 
-    public int getYear() {
-        return year;
+    public int getTelTime() {
+        return telTime;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setTelTime(int telTime) {
+        this.telTime = telTime;
     }
 
-    public int getMonth() {
-        return month;
+    public int getDelayPayTimes() {
+        return delayPayTimes;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public void setDelayPayTimes(int delayPayTimes) {
+        this.delayPayTimes = delayPayTimes;
     }
 
-    public int getNum() {
-        return num;
+    public String getExpectedOutput() {
+        return expectedResult;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setExpectedOutput(String expectedOutput) {
+        this.expectedResult = expectedOutput;
     }
 
-    public int getTime() {
-        return time;
-    }
 
-    public void setC(int time) {
-        this.time = time;
-    }
-
-    public double getExpectedOutput() {
-        return expectedOutput;
-    }
-
-    public void setExpectedOutput(double expectedOutput) {
-        this.expectedOutput = expectedOutput;
-    }
 }

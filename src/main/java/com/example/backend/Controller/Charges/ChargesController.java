@@ -25,7 +25,7 @@ public class ChargesController {
         return c.testStaticFile("Decision");
     }
 
-    @RequestMapping(value = "/charge/batchTest",method = RequestMethod.POST)
+    @RequestMapping(value = "/charge/systemTest",method = RequestMethod.POST)
     @ResponseBody
     public JSONObject getChargesBatchTestResult(@RequestBody String jsonStr) throws UnsupportedEncodingException {
 

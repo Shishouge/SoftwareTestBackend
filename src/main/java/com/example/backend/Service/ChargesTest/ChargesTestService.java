@@ -41,37 +41,36 @@ public class ChargesTestService {
         JSONObject totalResult= new JSONObject();
         List<JSONObject> resultList=new ArrayList<>();
         List<JSONObject> error_info=new ArrayList<>();
-
         for(int i=0;i<chargeCaseList.size();i++)
         {
-            System.out.println(chargeCaseList.get(i).getMonth());
+            System.out.println(chargeCaseList.get(i).getTelTime());
+            System.out.println(chargeCaseList.get(i).getDelayPayTimes());
             JSONObject returnedjson =new JSONObject();
-            double actual= charge.getCharge(
-                    chargeCaseList.get(i).getNum(),chargeCaseList.get(i).getTime(),
-                    chargeCaseList.get(i).getYear(),chargeCaseList.get(i).getMonth());
+            String actual= charge.checkType(chargeCaseList.get(i).getTelTime(),chargeCaseList.get(i).getDelayPayTimes());
 
             SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String testTime = sdf.format(new java.util.Date());
 
             returnedjson.put("id",chargeCaseList.get(i).getId());
-            returnedjson.put("year",chargeCaseList.get(i).getYear());
-            returnedjson.put("month",chargeCaseList.get(i).getMonth());
-            returnedjson.put("num",chargeCaseList.get(i).getNum());
-            returnedjson.put("time",chargeCaseList.get(i).getTime());
-            returnedjson.put("expectedOutput",chargeCaseList.get(i).getExpectedOutput());
+            returnedjson.put("telTime",chargeCaseList.get(i).getTelTime());
+            returnedjson.put("delayPayTimes",chargeCaseList.get(i).getDelayPayTimes());
+            returnedjson.put("expectedOutput",chargeCaseList.get(i).getExpectedOutput().toString());
             returnedjson.put("actualOutput",actual);
             returnedjson.put("info","Success");
             returnedjson.put("testTime",testTime);
-
-            if(actual == chargeCaseList.get(i).getExpectedOutput()) {
-                returnedjson.put("testResult","Pass");
+            System.out.print(actual + "   ");
+            System.out.print(chargeCaseList.get(i).getExpectedOutput().toString() + "   ");
+            if(actual.equals(chargeCaseList.get(i).getExpectedOutput())) {
+                System.out.print("Equal");
+                returnedjson.put("testResult","Success");
                 right_num++;
             } else {
+                System.out.print("Error");
                 returnedjson.put("testResult","Error");
                 error_info.add(returnedjson);
                 error_num++;
             }
-
+            System.out.println();
             resultList.add(returnedjson);
         }
 
@@ -94,76 +93,6 @@ public class ChargesTestService {
     }
 
     public JSONObject testStaticFile(String testType) {
-
-        String address = "src/main/resources/static/ChargeTestData/";
-        if (testType.equals("Decision")) {
-            address += "ChargeTetData_D.xls";
-        }
-        File file = new File(address);
-
-        try {
-            int pass_num = 0;
-            int error_num = 0;
-
-            // 获得原始数据
-            Workbook wb = Workbook.getWorkbook(file);
-            // 创建副本
-            WritableWorkbook workbook = Workbook.createWorkbook(file, wb);
-            Sheet sheet = wb.getSheet(0);
-            WritableSheet wsheet = workbook.getSheet(0);
-
-            // 添加新列
-            wsheet.addCell(new Label(6, 0, "actualOutput"));
-            wsheet.addCell(new Label(7, 0, "testResult"));
-
-
-            for (int i = 1; i < sheet.getRows(); i++) {
-                int year = Integer.valueOf(sheet.getCell(1,i).getContents());
-                int month = Integer.valueOf(sheet.getCell(2,i).getContents());
-                int num = Integer.valueOf(sheet.getCell(3,i).getContents());
-                double time = Double.valueOf(sheet.getCell(4,i).getContents());
-
-                // 如果输入的是 1.010这种 string就会错（猜测
-
-                double expectedOutput = Double.valueOf(sheet.getCell(5,i).getContents());
-                double actualOutput = charge.getCharge(num, time, year, month);
-
-                Label actual_Output = new Label(6, i, String.valueOf(actualOutput));
-                wsheet.addCell(actual_Output);
-
-                if(actualOutput == (expectedOutput)) {
-                    Label testResult = new Label(7, i, "Pass");
-                    wsheet.addCell(testResult);
-                    pass_num++;
-                } else {
-                    Label testResult = new Label(7, i, "Error");
-                    wsheet.addCell(testResult);
-                    error_num++;
-                    returnformat r = new returnformat(
-                            num +"/"+ time,
-                            String.valueOf(expectedOutput), String.valueOf(actualOutput));
-                    errorList.add(r);
-                }
-            }
-
-            json.put("right_num",pass_num);
-            json.put("error_num",error_num);
-            json.put("error_info",errorList);
-
-            workbook.write();
-            workbook.close();
-            return json;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (BiffException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (RowsExceededException e) {
-            e.printStackTrace();
-        } catch (WriteException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 }
