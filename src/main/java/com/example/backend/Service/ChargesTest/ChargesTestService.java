@@ -1,23 +1,11 @@
 package com.example.backend.Service.ChargesTest;
 
 import com.example.backend.Entity.ChargeCase;
-import com.example.backend.Entity.TriangleCase;
 import com.example.backend.Solution.Calendar.returnformat;
 import com.example.backend.Solution.Charges.Charges;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-import jxl.write.Label;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,13 +42,13 @@ public class ChargesTestService {
             returnedjson.put("id",chargeCaseList.get(i).getId());
             returnedjson.put("telTime",chargeCaseList.get(i).getTelTime());
             returnedjson.put("delayPayTimes",chargeCaseList.get(i).getDelayPayTimes());
-            returnedjson.put("expectedOutput",chargeCaseList.get(i).getExpectedOutput().toString());
+            returnedjson.put("expectedOutput",chargeCaseList.get(i).getExpectedResult().toString());
             returnedjson.put("actualOutput",actual);
             returnedjson.put("info","Success");
             returnedjson.put("testTime",testTime);
             System.out.print(actual + "   ");
-            System.out.print(chargeCaseList.get(i).getExpectedOutput().toString() + "   ");
-            if(actual.equals(chargeCaseList.get(i).getExpectedOutput())) {
+            System.out.print(chargeCaseList.get(i).getExpectedResult().toString() + "   ");
+            if(actual.equals(chargeCaseList.get(i).getExpectedResult())) {
                 System.out.print("Equal");
                 returnedjson.put("testResult","Success");
                 right_num++;
