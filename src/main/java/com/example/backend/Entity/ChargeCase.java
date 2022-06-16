@@ -5,7 +5,7 @@ public class ChargeCase {
     public String id;
     public int telTime;
     public int delayPayTimes;
-    public String expectedResult;
+    public String expectedOutput;
 
     // 要有否则parse json的时候报错
     public ChargeCase(){
@@ -15,7 +15,7 @@ public class ChargeCase {
     public ChargeCase(int telTime, int delayPayTimes, String expectedOutput) {
         this.telTime = telTime;
         this.delayPayTimes = delayPayTimes;
-        this.expectedResult = expectedOutput;
+        this.expectedOutput = expectedOutput;
     }
 
     public String getId() {
@@ -43,11 +43,11 @@ public class ChargeCase {
     }
 
     public String getExpectedOutput() {
-        return expectedResult;
+        return expectedOutput;
     }
 
     public void setExpectedOutput(String expectedOutput) {
-        this.expectedResult = expectedOutput;
+        this.expectedOutput = expectedOutput;
     }
 
 
